@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             x:Class="OnSale.Prism.App">
+  <Application.Resources>
+
+        <ResourceDictionary>
+
+            <!-- Parameters -->
+            <!--<x:String x:Key="UrlAPI">https://onsalezulu.azurewebsites.net</x:String>-->
+            <x:String x:Key="UrlAPI">https://lavecindad.azurewebsites.net</x:String>
+            <x:String x:Key="UrlNoImage">https://registrocomidas.azurewebsites.net/images/noimage.png</x:String>
+
+            <!-- Colors -->
+            <Color x:Key="ColorBackground">#fff</Color>  
+            <Color x:Key="ColorPrimary">#3E518C</Color>
+            <Color x:Key="ColorSecondary">#8C8C8C</Color>
+            <Color x:Key="ColorDanger">#ff00</Color>
+            <Color x:Key="ColorAccent">#f00</Color>
+            <Color x:Key="ColorFont">#0D0D0D</Color>
+            <Color x:Key="ColorFontInverse">#D9D9D9</Color>
+
+            <!-- Styles -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="TextColor" Value="{StaticResource ColorFontInverse}" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource ColorFont}" />
+            </Style>
+
+            <Style x:Key="SecondaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorSecondary}" />
+            </Style>
+
+            <Style x:Key="DangerButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorDanger}" />
+            </Style>
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</prism:PrismApplication>

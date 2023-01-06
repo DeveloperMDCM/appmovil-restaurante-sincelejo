@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"  
+           	 xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+             xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="OnSale.Prism.Views.ProductDetailPage"
+             BackgroundColor="White"
+             IconImageSource="ic_action_card_giftcard"
+             Title="{Binding Title}">
+
+    <StackLayout Padding="5">
+        <ScrollView>
+            <StackLayout>
+                <StackLayout HorizontalOptions="Center"
+                             Orientation="Horizontal">
+                    <Label Text="{i18n:Translate Qualification}"
+                            VerticalOptions="Center"/>
+                    <Label FontAttributes="Bold"
+                            FontSize="Large"
+                            Text="{Binding Product.Qualification, StringFormat='{0:N2}'}"/>
+                    <Label Text="{i18n:Translate QualificationNumber}"
+                            VerticalOptions="Center"/>
+                    <Label FontAttributes="Bold"
+                            FontSize="Large"
+                            Text="{Binding Product.ProductQualifications, StringFormat='{0:N0}'}"/>
+                </StackLayout>
+                <Label IsVisible="False" Grid.Row="0"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="{i18n:Translate Name}"/>
+                <Label Grid.Row="0" FontSize="30"
+                           Grid.Column="1" FontAttributes="Bold"
+                           Text="{Binding Product.Name}"/>
+                <rating:SfRating HorizontalOptions="Center"  
+                                                 IsEnabled="False"
+                                                 Precision="Exact" 
+                                                Value="{Binding Product.Qualification}">
+                    <rating:SfRating.RatingSettings>
+                        <rating:SfRatingSettings RatedFill="Yellow" RatedStroke="Black"  UnRatedStroke="Black"/>
+                    </rating:SfRating.RatingSettings>
+                </rating:SfRating>
+                <syncfusion:SfRotator EnableAutoPlay="True"  
+                                      EnableLooping="True"
+                                      HeightRequest="300"
+                                      ItemsSource="{Binding Images}"
+                                      NavigationDelay="5000"
+                                      NavigationDirection="Horizontal"
+                                      NavigationStripMode="Dots"
+                                      NavigationStripPosition="Bottom">
+                    <syncfusion:SfRotator.ItemTemplate>
+                        <DataTemplate>
+                            <ffimageloading:CachedImage Aspect="AspectFit"
+                                                        CacheDuration= "50"
+                                                        DownsampleToViewSize = "true"
+                                                        ErrorPlaceholder= "ErrorImage"
+                                                        HeightRequest="300"
+                                                        LoadingPlaceholder= "LoaderImage"
+                                                        RetryCount= "3"
+                                                        RetryDelay= "600"
+                                                        Source="{Binding ImageFullPath}"/>
+                        </DataTemplate>
+                    </syncfusion:SfRotator.ItemTemplate>
+                </syncfusion:SfRotator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label IsVisible="False" Grid.Row="0"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="{i18n:Translate Name}"/>
+                    <Label Grid.Row="0" FontSize="30"
+                           Grid.Column="1" FontAttributes="Bold"
+                           Text="{Binding Product.Name}"/>
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           FontAttributes="Bold" FontSize="20"
+                           Text="{i18n:Translate Description}"/>
+                    <Label Grid.Row="1"
+                           Grid.Column="1" 
+                           Text="{Binding Product.Description}"/>
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           FontAttributes="Bold" FontSize="20"
+                           Text="{i18n:Translate Price}"/>
+                    <Label Grid.Row="2"
+                           Grid.Column="1" FontSize="20"
+                           Text="{Binding Product.Price, StringFormat='{0:C2}'}"/>
+                    <Label Grid.Row="3"
+                           Grid.Column="0" IsVisible="False"
+                           FontAttributes="Bold" FontSize="20"
+                           Text="{i18n:Translate Category}"/>
+                    <Label Grid.Row="3"  IsVisible="False"
+                           Grid.Column="1"
+                           Text="{Binding Product.Category.Name}"/>
+                    <Label IsVisible="False" Grid.Row="4"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="{i18n:Translate IsStarred}"
+                           VerticalOptions="Center"/>
+                    <CheckBox IsVisible="False" Grid.Row="4"
+                              Grid.Column="1"
+                              HorizontalOptions="Start"
+                              IsEnabled="False"
+                              IsChecked="{Binding Product.IsStarred}"/>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+        <!--<Button BackgroundColor="Navy"
+                Command="{Binding AddToCartCommand}" 
+                CornerRadius="10"
+                Text="{i18n:Translate AddToCart}"
+                TextColor="White"
+                VerticalOptions="EndAndExpand"/>-->
+        <buttons:SfButton x:Name="SfButton" Command="{Binding AddToCartCommand}" 
+              
+                Text="{i18n:Translate AddToCart}"  
+                VerticalOptions="CenterAndExpand"  FontSize="25"  BackgroundColor="#ff00ff00" BorderColor="Black" CornerRadius="10"  BorderWidth="2" TextColor="Black"  HorizontalOptions="EndAndExpand"  ShowIcon="True" ImageSource="carrito.png"/>
+
+    </StackLayout>
+
+</ContentPage>

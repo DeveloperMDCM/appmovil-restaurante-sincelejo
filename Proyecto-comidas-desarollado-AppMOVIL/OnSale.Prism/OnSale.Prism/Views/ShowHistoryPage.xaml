@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+         	 xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+           	 xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+             x:Class="OnSale.Prism.Views.ShowHistoryPage"
+             BackgroundColor="White"
+             Title="{Binding Title}">
+
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All" 
+                     Padding="10">
+            <SearchBar Placeholder="{i18n:Translate SearchOrder}"
+                       SearchCommand="{Binding SearchCommand}"
+                       Text="{Binding Search}"/>
+            <Grid   >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="46" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       FontAttributes="Bold"
+                       Text="{i18n:Translate Date}"/>
+                <Label Grid.Column="1"
+                       FontAttributes="Bold"
+                       Text="{i18n:Translate OrderStatus}"/>
+                <Label Grid.Column="2"
+                       FontAttributes="Bold"
+                       HorizontalOptions="End"
+                       Text="{i18n:Translate Value}"/>
+            </Grid>
+            <CollectionView ItemsSource="{Binding Orders}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                    <Frame BorderColor="Black" CornerRadius="15" HasShadow="True" Padding="5">
+                            <Grid  >
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectOrderCommand}"/>
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" FontSize="12"
+                                   Text="{Binding DateLocal, StringFormat='{0:yyyy/MM/dd hh:mm tt}'}"/>
+                            <Label Grid.Column="1" 
+                                   Text="{Binding OrderStatus}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="2" 
+                                   Text="{Binding Value, StringFormat='{0:C2}'}"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Center"/>
+                           
+                        </Grid>
+                            </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+        <busyindicator:SfBusyIndicator AnimationType="SingleCircle" 
+                                       AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                   AbsoluteLayout.LayoutFlags="All"
+                	                  
+                	                   HorizontalOptions="Center"
+                	                   TextColor="Black"
+                	                   IsBusy="{Binding IsRunning}"
+                	                   Title="{i18n:Translate Loading}"
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
+    </AbsoluteLayout>
+
+</ContentPage>

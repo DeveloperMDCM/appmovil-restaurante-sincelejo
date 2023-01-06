@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+         	 xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+           	 xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+             xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+             x:Class="OnSale.Prism.Views.ProductsPage"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             BackgroundColor="White"
+             Title="Comidas Rapidas">
+
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Text="{Binding CartNumber}" Command="{Binding ShowCartCommand}"/>-->
+        <ToolbarItem   Command="{Binding ShowCartCommand}"
+                 IconImageSource="carrito.png" Text="{Binding CartNumber}"
+                 />
+        <ToolbarItem Text="{Binding CartNumber}" />
+        <ToolbarItem Name="Menu1" Clicked="Menu1_Clicked" Order="Secondary" Text="Encuentranos" />
+        <ToolbarItem Name="Menu2" Clicked="Menu2_Clicked" Order="Secondary" Text="Siguenos"/>
+    </ContentPage.ToolbarItems>
+
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All" 
+                     Padding="5">
+            <SearchBar Placeholder="{i18n:Translate SearchProduct}"
+                       SearchCommand="{Binding SearchCommand}"
+                       Text="{Binding Search}"/>
+            <CollectionView  ItemsSource="{Binding Products}"  
+                                 VerticalOptions="Center"   
+                                 HorizontalOptions="Center"   
+                                 BackgroundColor="#fff"
+                                 Margin="10">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Frame BorderColor="LightGray" CornerRadius="15" HasShadow="True" Padding="5">
+                                <Grid Padding="5" ColumnSpacing="0" RowSpacing="0" Margin="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="130"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectProductCommand}"/>
+                                    </Grid.GestureRecognizers>
+                                    <ffimageloading:CachedImage Grid.Row="1"
+                                                        Aspect="AspectFill"
+                                                        Source="{Binding ImageFullPath}" 
+                                                        CacheDuration= "50"
+                                                        Margin="5"
+                                                        RetryCount= "3"
+                                                        RetryDelay= "600"
+                                                        WidthRequest="100"/>
+
+                                  
+
+
+                                    <Label HorizontalOptions="Center" Grid.Row="2" Text="{Binding Name}" 
+                                       FontAttributes="Bold"
+                                       FontSize="Medium" 
+                                       LineBreakMode="TailTruncation" />
+                                    <Label HorizontalOptions="Center" Grid.Row="3"  Text="{Binding Price, StringFormat='{0:C2}'}"
+                                       LineBreakMode="TailTruncation"
+                                       FontAttributes="Bold" 
+                                       VerticalOptions="End" />
+                                    <!--<buttons:SfButton x:Name="SfButton" Command="{Binding AddToCartCommand}" 
+              
+                Text="{i18n:Translate AddToCart}"
+               
+                VerticalOptions="EndAndExpand" Grid.Row="5" BackgroundColor="Turquoise" CornerRadius="10" BorderColor="Black" BorderWidth="2" TextColor="Black"  HorizontalOptions="Center"  ShowIcon="True" ImageSource="carrito.png"/>-->
+
+
+                                    <rating:SfRating HorizontalOptions="Center" Grid.Row="4"  ItemSize="15"
+                                                 IsEnabled="False"
+                                                 Precision="Exact" 
+                                                 Value="{Binding Qualification}">
+                                        <rating:SfRating.RatingSettings>
+                                            <rating:SfRatingSettings RatedFill="Yellow" RatedStroke="Black"  UnRatedStroke="Black"/>
+                                        </rating:SfRating.RatingSettings>
+                                    </rating:SfRating>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+        <busyindicator:SfBusyIndicator AnimationType="SingleCircle" 
+                                       AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                   AbsoluteLayout.LayoutFlags="All"
+                	                   
+                	                   HorizontalOptions="Center"
+                	                   TextColor="Black"
+                	                   IsBusy="{Binding IsRunning}"
+                	                   Title="{i18n:Translate Loading}"
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
+
+    </AbsoluteLayout>
+
+</ContentPage>

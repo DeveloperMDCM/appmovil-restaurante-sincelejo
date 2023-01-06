@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+         	 xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+           	 xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="OnSale.Prism.Views.LoginPage"
+             BackgroundColor="White"
+             Title="{Binding Title}">
+  
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All" 
+                     Padding="50">
+            <ScrollView>
+                <StackLayout>
+                    <Image HeightRequest="150"
+                           Margin="20"
+                           Source="https://cdn.icon-icons.com/icons2/1154/PNG/512/1486564400-account_81513.png"/>
+
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <inputLayout:SfTextInputLayout Hint="{i18n:Translate Email}" 
+                                                       ContainerType="Outlined">
+                            <Entry Placeholder="{i18n:Translate EmailPlaceHolder}"
+                                   Keyboard="Email"
+                                   Text="{Binding Email}" />
+                        </inputLayout:SfTextInputLayout>
+                    
+                        <inputLayout:SfTextInputLayout Hint="{i18n:Translate Password}" 
+                                                       EnablePasswordVisibilityToggle="true"
+                                                       ContainerType="Outlined">
+                            <Entry Placeholder="{i18n:Translate PasswordPlaceHolder}" 
+                                   IsPassword="True"
+                                   Text="{Binding Password}" />
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+
+                    <Label FontAttributes="Bold"
+                           HorizontalOptions="Center" 
+                           Text="{i18n:Translate ForgotPassword}"
+                           TextColor="{StaticResource ColorAccent}"
+                           VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </StackLayout>
+            </ScrollView>
+            <StackLayout VerticalOptions="EndAndExpand" >
+              
+                <buttons:SfButton x:Name="SfButton"   BackgroundColor="#ff00ff00" TextColor="Black"
+                       Command="{Binding LoginCommand}" 
+                        IsEnabled="{Binding IsEnabled}"
+                        Text="{i18n:Translate Login}"
+                        HeightRequest="45"
+                        
+                VerticalOptions="CenterAndExpand"  FontSize="25"  CornerRadius="10"  BorderWidth="2"    HorizontalOptions="EndAndExpand"  ShowIcon="True" />
+                <buttons:SfButton x:Name="SfButtonn"   BackgroundColor="#4768AD" 
+                        Command="{Binding LoginFacebookCommand}"
+                        HeightRequest="45"
+                        IsEnabled="{Binding IsEnabled}"
+                      
+                        Text="{i18n:Translate LoginFacebook}"
+                        TextColor="#FFFFFF"
+                VerticalOptions="CenterAndExpand"  FontSize="25"  CornerRadius="10"  BorderWidth="2"    HorizontalOptions="EndAndExpand"  ShowIcon="True" />
+               
+               
+                <Button Command="{Binding RegisterCommand}" TextColor="White"
+                        IsEnabled="{Binding IsEnabled}"
+                        Text="{i18n:Translate Register}"
+                        Style="{StaticResource DangerButton}"/>
+            </StackLayout>
+        </StackLayout>
+        <busyindicator:SfBusyIndicator AnimationType="SingleCircle" 
+                                       AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                   AbsoluteLayout.LayoutFlags="All"
+                	                  
+                	                   HorizontalOptions="Center"
+                	                   TextColor="Black"
+                	                   IsBusy="{Binding IsRunning}"
+                	                   Title="{i18n:Translate Loading}"
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
+    </AbsoluteLayout>
+
+</ContentPage>

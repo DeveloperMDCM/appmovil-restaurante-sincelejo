@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+         	 xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+           	 xmlns:i18n="clr-namespace:OnSale.Prism.Helpers"
+             x:Class="OnSale.Prism.Views.ShowCarPage"
+             BackgroundColor="White"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="ic_action_delete" Command="{Binding ClearAllCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     AbsoluteLayout.LayoutFlags="All" 
+                     Padding="5">
+            <Frame BorderColor="LightGray" CornerRadius="15" HasShadow="True" Padding="5">
+                <CollectionView ItemsSource="{Binding Products}"  VerticalOptions="Center"   
+                                 HorizontalOptions="Center"   
+                                 BackgroundColor="#F9F9F9"
+                                 Margin="5">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="1"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+
+                        <DataTemplate>
+                            <Grid>
+                           
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectProduct2Command}"/>
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                    
+                            </Grid.ColumnDefinitions>
+                            <ffimageloading:CachedImage Grid.Column="0"
+                                                        Aspect="AspectFit"
+                                                        Source="{Binding ImageFullPath}" 
+                                                        CacheDuration= "50"
+                                                        Margin="5" 
+                                                        RetryCount= "3"
+                                                        RetryDelay= "600"
+                                                        WidthRequest="100"/>
+                                
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Column="0"
+                                       Grid.Row="0"
+                                       Text="{i18n:Translate Name}" 
+                                       FontAttributes="Bold" 
+                                       VerticalOptions="Center"/>
+                                   
+                                    <Label Grid.Column="1"
+                                       Grid.Row="0"
+                                       Text="{Binding Name}" 
+                                       FontSize="Medium"/>
+
+                                <Label Grid.Column="0"
+                                       Grid.Row="1" 
+                                       Text="{i18n:Translate Price}" 
+                                       FontAttributes="Bold" 
+                                       VerticalOptions="Center"/>
+                                <Label Grid.Column="1"
+                                       Grid.Row="1"
+                                       FontSize="Medium" TextColor="Red"
+                                       HorizontalTextAlignment="End"
+                                       Text="{Binding Price, StringFormat='{0:C2}'}" />
+                                    <BoxView Grid.Column="1" Grid.Row="5" WidthRequest="2" HeightRequest="2" BackgroundColor="Red"></BoxView>
+                                    <Label Grid.Column="0"
+                                       Grid.Row="2"
+                                       Text="{i18n:Translate Quantity}" 
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Grid.Row="2"
+                                       FontSize="Medium"
+                                       HorizontalTextAlignment="End"
+                                       Text="{Binding Quantity}" />
+
+                                <Label Grid.Column="0"
+                                       Grid.Row="3"
+                                       Text="{i18n:Translate Value}" 
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Grid.Row="3"
+                                       FontSize="Medium" TextColor="Green"
+                                       HorizontalTextAlignment="End"
+                                       Text="{Binding Value, StringFormat='{0:C2}'}" />
+                                
+                            </Grid>
+                            </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            </Frame>
+            <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0"
+                           Grid.Row="0"
+                           Text="{i18n:Translate Total}" 
+                           FontAttributes="Bold" 
+                           VerticalOptions="Center"/>
+                    <Label Grid.Column="1"
+                           Grid.Row="0"
+                           FontSize="Medium"
+                           HorizontalTextAlignment="End"
+                           Text="{Binding TotalValue, StringFormat='{0:C2}'}" />
+
+                    <Label Grid.Column="0"
+                           Grid.Row="1"
+                           Text="{i18n:Translate Items}" 
+                           FontAttributes="Bold" 
+                           VerticalOptions="Center"/>
+                    <Label Grid.Column="1"
+                           Grid.Row="1"
+                           FontSize="Medium"
+                           HorizontalTextAlignment="End"
+                           Text="{Binding TotalItems}" />
+
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Text="{i18n:Translate Quantity}" 
+                           FontAttributes="Bold" 
+                           VerticalOptions="Center"/>
+                    <Label Grid.Column="1"
+                           Grid.Row="2"
+                           FontSize="Medium"
+                           HorizontalTextAlignment="End"
+                           Text="{Binding TotalQuantity}" />
+                </Grid>
+              
+                <buttons:SfButton x:Name="SfButton"  
+              
+                Text="{i18n:Translate FinishOrder}"   Command="{Binding FinishOrderCommand}" 
+                        IsEnabled="{Binding IsEnabled}"
+                VerticalOptions="CenterAndExpand"  FontSize="25"  BackgroundColor="#ffff0000" CornerRadius="10" BorderColor="Black" BorderWidth="2" TextColor="White"  HorizontalOptions="EndAndExpand"  ShowIcon="True" ImageSource="carrito.png"/>
+
+            </StackLayout>
+        </StackLayout>
+        <busyindicator:SfBusyIndicator AnimationType="SingleCircle" 
+                                       AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                	                   AbsoluteLayout.LayoutFlags="All"
+                	                  
+                	                   HorizontalOptions="Center"
+                	                   TextColor="Black"
+                	                   IsBusy="{Binding IsRunning}"
+                	                   Title="{i18n:Translate Loading}"
+                	                   VerticalOptions="Center"
+                	                   ViewBoxWidth="80"
+                	                   ViewBoxHeight="80" />
+    </AbsoluteLayout>
+
+</ContentPage>

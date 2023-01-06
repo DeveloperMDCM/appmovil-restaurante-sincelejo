@@ -1,0 +1,4 @@
+Aplicacion movil de restaurante para el restaurante la vecindad sincelejo.
+Copyright 2020. MOISES CANARIA
+Link pagina donde se registran.
+https://lavecindad.azurewebsites.net/
