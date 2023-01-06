@@ -1,2 +1,2 @@
-# OnSale
-Este será un proyecto de ventas
+# App movil
+proyecto de ventas restuarante de comidas rapidas
